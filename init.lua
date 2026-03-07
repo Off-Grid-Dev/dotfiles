@@ -186,3 +186,6 @@ local function update_config()
 		stderr_buffered = true,
 	})
 end
+
+-- 7. Map config update
+vim.keymap.set("n", "<leader>cu", update_config, { desc = "update config and plugins from github" })
