@@ -90,7 +90,7 @@ map("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
 for _, key in ipairs({ "h", "j", "k", "l" }) do
 	local arrow = key == "h" and "left" or key == "j" and "down" or key == "k" and "up" or "right"
 	map("n", "<" .. arrow .. ">", function()
-		vim.notify("Use the " .. key .. " to move you wicked noob!", vim.log.levels.WARN)
+		vim.notify("Use the " .. key .. " to move " .. arrow .. " you wicked noob!", vim.log.levels.INFO)
 	end, { desc = "Disable arrow key" })
 end
 
@@ -123,3 +123,66 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.fn.mkdir(dir, "p")
 	end,
 })
+
+-- Update config repo
+
+local function update_config()
+	local config_path = vim.fn.stdpath("config")
+
+	-- 1. Safety Check: Ensure git is available
+	if vim.fn.executable("git") == 0 then
+		vim.notify("Git is not in yo PATH homey!!", vim.log.levels.ERROR)
+		return
+	end
+
+	-- 2. Anoooother Safter Check: Ensure config is a git repo
+	local git_check = vim.fn.system(string.format("git -C %s rev-parse --is-inside-work-tree", config_path))
+	if vim.v.shell_error ~= 0 then
+		vim.notify("Config dir is not in the git repo dipshit.", vim.log.levels.WARN)
+		return
+	end
+
+	-- 3. What the fuck... Safety Check: Ensure no uncommitted changes (No Dirty Business)
+	-- synchronously at first then get to work
+	local status = vim.fn.system(string.format("git -C %s status --porcelain", config_path))
+	if status ~= "" then
+		vim.notify("Fix your shit! This place is a mess. Save or stash.", vim.log.levels.INFO)
+		return
+	end
+
+	vim.notify("Let's get you updated!", vim.log.levels.INFO)
+
+	-- 4. Run Git Pull Async
+	vim.jobstart({
+		"git",
+		"-C",
+		config_path,
+		"pull",
+		"--ff-only",
+		on_exit = function(job_id, exit_code, event_type)
+			if exit_code == 0 then
+				vim.notify("Updated config repo.. it's Lazy and Mason time!", vim.log.levels.INFO)
+
+				-- 5. Sync Lazy
+				local status_ok, lazy = pcall(require, "lazy")
+				if status_ok then
+					lazy.sync({ wait = true })
+				end
+
+				-- 6. Refresh Mason
+				local mason_ok, registry = pcall(require, "mason-registry")
+				if mason_ok then
+					registry.refresh()
+					vim.notify("Mason is all fresh and sexy", vim.log.levels.INFO)
+				end
+
+				vim.notify("Config is happy and updated!", vim.log.levels.INFO)
+			else
+				vim.notify("Oh FUCK! The config is ruined and the world is over!", vim.log.levels.WARN)
+			end
+		end,
+	}, {
+		stdout_buffered = true,
+		stderr_buffered = true,
+	})
+end

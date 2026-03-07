@@ -2,7 +2,7 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	event = "VimEnter",
-	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "BurntSushi/ripgrep" },
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
