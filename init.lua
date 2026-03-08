@@ -157,7 +157,7 @@ local function update_config()
   vim.notify("Let's get you updated!", vim.log.levels.INFO)
 
   -- 4. Run Git Pull Async
-  vim.jobstart({
+  vim.fn.jobstart({
       "git",
       "-C",
       config_path,
