@@ -158,37 +158,38 @@ local function update_config()
 
   -- 4. Run Git Pull Async
   vim.jobstart({
-    "git",
-    "-C",
-    config_path,
-    "pull",
-    "--ff-only",
-    on_exit = function(job_id, exit_code, event_type)
-      if exit_code == 0 then
-        vim.notify("Updated config repo.. it's Lazy and Mason time!", vim.log.levels.INFO)
+      "git",
+      "-C",
+      config_path,
+      "pull",
+      "--ff-only",
+    },
+    {
+      stdout_buffered = true,
+      stderr_buffered = true,
+      on_exit = function(job_id, exit_code, event_type)
+        if exit_code == 0 then
+          vim.notify("Updated config repo.. it's Lazy and Mason time!", vim.log.levels.INFO)
 
-        -- 5. Sync Lazy
-        local status_ok, lazy = pcall(require, "lazy")
-        if status_ok then
-          lazy.sync({ wait = true })
+          -- 5. Sync Lazy
+          local status_ok, lazy = pcall(require, "lazy")
+          if status_ok then
+            lazy.sync({ wait = true })
+          end
+
+          -- 6. Refresh Mason
+          local mason_ok, registry = pcall(require, "mason-registry")
+          if mason_ok then
+            registry.refresh()
+            vim.notify("Mason is all fresh and sexy", vim.log.levels.INFO)
+          end
+
+          vim.notify("Config is happy and updated!", vim.log.levels.INFO)
+        else
+          vim.notify("Oh FUCK! The config is ruined and the world is over!", vim.log.levels.WARN)
         end
-
-        -- 6. Refresh Mason
-        local mason_ok, registry = pcall(require, "mason-registry")
-        if mason_ok then
-          registry.refresh()
-          vim.notify("Mason is all fresh and sexy", vim.log.levels.INFO)
-        end
-
-        vim.notify("Config is happy and updated!", vim.log.levels.INFO)
-      else
-        vim.notify("Oh FUCK! The config is ruined and the world is over!", vim.log.levels.WARN)
-      end
-    end,
-  }, {
-    stdout_buffered = true,
-    stderr_buffered = true,
-  })
+      end,
+    })
 end
 
 -- 7. Map config update
