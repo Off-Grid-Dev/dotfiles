@@ -1,3 +1,4 @@
+-- boooooyah!
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.is_windows = vim.fn.has("win32") == 1
