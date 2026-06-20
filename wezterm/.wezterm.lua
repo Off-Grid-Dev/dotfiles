@@ -4,8 +4,8 @@ local config = wezterm.config_builder()
 -- =============================================
 -- 1. Initial domain
 -- =============================================
-config.default_domain = 'local'
-config.default_prog = { 'powershell.exe' }
+-- config.default_domain = 'local'
+-- config.default_prog = { 'powershell.exe' }
 
 -- =============================================
 -- 2. Font (0xProto Nerd Font)
@@ -18,15 +18,15 @@ config.harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
 -- =============================================
 -- 3. Renderer (Optimized for Snapdragon X)
 -- =============================================
-config.front_end = 'WebGpu'
+-- config.front_end = 'WebGpu'
 
 -- =============================================
 -- 4. Appearance & Theme
 -- =============================================
 config.color_scheme = 'Catppuccin Mocha'
 config.window_background_opacity = 0.85
-config.win32_system_backdrop = 'Acrylic'
-config.window_decorations = 'RESIZE'
+-- config.win32_system_backdrop = 'Acrylic'
+config.window_decorations = 'NONE'
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false
@@ -46,46 +46,48 @@ config.window_padding = {
 config.max_fps = 60
 config.animation_fps = 60
 config.cursor_blink_rate = 800
-config.scrollback_lines = 5000
+config.scrollback_lines = 3000
 
 -- =============================================
 -- 6. Keybindings
 -- =============================================
 config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
 config.keys = {
-  { key = 'h',     mods = 'CTRL',   action = wezterm.action.ActivatePaneDirection 'Left' },
-  { key = 'j',     mods = 'CTRL',   action = wezterm.action.ActivatePaneDirection 'Down' },
-  { key = 'k',     mods = 'CTRL',   action = wezterm.action.ActivatePaneDirection 'Up' },
-  { key = 'l',     mods = 'CTRL',   action = wezterm.action.ActivatePaneDirection 'Right' },
-  { key = '|',     mods = 'LEADER', action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' } },
-  { key = '-',     mods = 'LEADER', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' } },
-  { key = 'H',     mods = 'LEADER', action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
-  { key = 'J',     mods = 'LEADER', action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
-  { key = 'K',     mods = 'LEADER', action = wezterm.action.AdjustPaneSize { 'Up', 2 } },
-  { key = 'L',     mods = 'LEADER', action = wezterm.action.AdjustPaneSize { 'Right', 2 } },
-  { key = 'x',     mods = 'LEADER', action = wezterm.action.CloseCurrentPane { confirm = false } },
-  { key = 'Enter', mods = 'LEADER', action = wezterm.action.ToggleFullScreen },
-  { key = 'u',     mods = 'LEADER', action = wezterm.action.SpawnTab { DomainName = 'WSL:Ubuntu' } },
-  { key = 'p',     mods = 'LEADER', action = wezterm.action.SpawnTab { DomainName = 'local' } },
+  { key = 'h',     mods = 'CTRL',       action = wezterm.action.ActivatePaneDirection 'Left' },
+  { key = 'j',     mods = 'CTRL',       action = wezterm.action.ActivatePaneDirection 'Down' },
+  { key = 'k',     mods = 'CTRL',       action = wezterm.action.ActivatePaneDirection 'Up' },
+  { key = 'l',     mods = 'CTRL',       action = wezterm.action.ActivatePaneDirection 'Right' },
+  { key = 'j',     mods = 'LEADER',     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = '-',     mods = 'LEADER',     action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' } },
+  { key = 'h',     mods = 'ALT',        action = wezterm.action.AdjustPaneSize { 'Left', 5 } },
+  { key = 'j',     mods = 'ALT',        action = wezterm.action.AdjustPaneSize { 'Down', 5 } },
+  { key = 'k',     mods = 'ALT',        action = wezterm.action.AdjustPaneSize { 'Up', 2 } },
+  { key = 'l',     mods = 'ALT',        action = wezterm.action.AdjustPaneSize { 'Right', 2 } },
+  { key = 'x',     mods = 'LEADER',     action = wezterm.action.CloseCurrentPane { confirm = false } },
+  { key = 'Enter', mods = 'LEADER',     action = wezterm.action.ToggleFullScreen },
+  { key = 'p',     mods = 'LEADER',     action = wezterm.action.SpawnTab { DomainName = 'local' } },
+  { key = 'h',     mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
+  { key = 'l',     mods = 'CTRL|SHIFT', action = wezterm.action.ActivateTabRelative(1) },
+
 }
 
 -- =============================================
 -- 7. Visual Confirmation (Fixed Version)
 -- =============================================
-wezterm.on('window-config-reloaded', function(window)
-  window:toast_notification('WezTerm', 'Fresh as a baby\'s ass!', nil, 2000)
-end)
+-- wezterm.on('window-config-reloaded', function(window)
+--   window:toast_notification('WezTerm', 'Fresh as a baby\'s ass!', nil, 2000)
+-- end)
 
 -- =============================================
 -- 8. SERIAL PORT CONFIGURATION (The Scale)
 -- =============================================
-config.serial_ports = {
-  {
-    name = 'scale',
-    port = 'COM9',
-    baud = 9600,
-  },
-}
+-- config.serial_ports = {
+--   {
+--     name = 'scale',
+--     port = 'COM9',
+--     baud = 9600,
+--   },
+-- }
 
 -- =============================================
 -- 9. WINDOW STUFF

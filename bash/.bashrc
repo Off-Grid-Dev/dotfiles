@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -92,6 +92,26 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# git commands
+alias gac='git add . && git commit -m'
+alias gup='git fetch --all && git pull'
+alias gsw='git switch'
+alias gswn='git switch -c'
+
+# personal magic
+alias wiggle='npm run'
+alias see_rc='nvim ~/dotfiles/bash/.bashrc'
+alias bashed='source ~/dotfiles/bash/.bashrc'
+alias cameractrls='snap connect cameractrls:camera'
+
+# open Arduino IDE
+alias arduino='arduino-ide --no-sandbox'
+
+# DVD stuff
+alias copy_dvd='dvdbackup -i /dev/sr0 -M -o ~/Videos/'
+alias copy_dvd_force='dvdbackup -i /dev/sr0 -M -f -o ~/Videos/'
+alias dvd_to_iso='mkisofs -dvd-video -o' #followed by "~/Videos/[movie name].iso" "~/Videos/[movie directory name]"
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -115,3 +135,11 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+export PATH="$HOME/.local/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "$HOME/.cargo/env"
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
