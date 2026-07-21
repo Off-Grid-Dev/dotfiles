@@ -40,8 +40,6 @@ return {
       ensure_installed = {
         "gopls",
         "lua_ls",
-        "phpactor",
-        "rust_analyzer",
         "html",
         "cssls",
         "jsonls",

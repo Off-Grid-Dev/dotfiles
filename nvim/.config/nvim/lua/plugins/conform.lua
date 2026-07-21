@@ -35,8 +35,6 @@ return {
       jsonc = { "prettierd", "prettier", stop_after_first = true },
       yaml = { "prettierd", "prettier", stop_after_first = true },
       markdown = { "prettierd", "prettier", stop_after_first = true },
-      php = { "pretty-php", "php_cs_fixer", stop_after_first = true },
-      rust = { "rustfmt" },
       cpp = { "clang-format" },
       c = { "clang-format" },
     },
