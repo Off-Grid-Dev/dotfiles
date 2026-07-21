@@ -19,10 +19,7 @@ return {
       if disable_filetypes[vim.bo[bufnr].filetype] then
         return nil
       end
-      return {
-        timeout_ms = 1000,
-        lsp_format = "fallback",
-      }
+      return { timeout_ms = 1000, lsp_format = "fallback" }
     end,
     formatters_by_ft = {
       lua = { "stylua" },
@@ -45,44 +42,11 @@ return {
     formatters = {
       prettierd = {
         condition = function(_, ctx)
-          -- Only use prettierd if package.json or .prettierrc exists nearby
           local util = require("conform.util")
-          return util.root_pattern("package.json", ".prettierrc", ".prettierrc.js", ".prettierrc.json")(
-            ctx.filename
-          ) ~= nil
-        end,
-      },
-      eslint = {
-        condition = function(_, ctx)
-          local util = require("conform.util")
-          return util.root_pattern(".eslintrc", ".eslintrc.js", ".eslintrc.json", "eslint.config.js")(
-            ctx.filename
-          ) ~= nil
+          return util.root_pattern("package.json", ".prettierrc", ".prettierrc.js", ".prettierrc.json")(ctx.filename)
+            ~= nil
         end,
       },
     },
   },
-  config = function(_, opts)
-    require("conform").setup(opts)
-
-    -- Auto-install formatters via Mason (optional helper)
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = {
-        "javascript",
-        "typescript",
-        "javascriptreact",
-        "typescriptreact",
-        "html",
-        "css",
-        "json",
-        "php",
-        "rust",
-        "cpp",
-        "c",
-      },
-      callback = function()
-        pcall(require, "mason")
-      end,
-    })
-  end,
 }

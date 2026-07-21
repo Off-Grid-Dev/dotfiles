@@ -46,7 +46,7 @@ return {
 					enabled = true,
 					leave_dirs_open = false,
 				},
-				use_libuv_file_watcher = vim.g.is_windows, -- Better for Windows
+				use_libuv_file_watcher = true,
 			},
 			window = {
 				position = "left",

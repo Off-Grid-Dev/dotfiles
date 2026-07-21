@@ -1,13 +1,10 @@
 return {
-	{
-		"neovim/nvim-lspconfig",
-		opts = {
-			servers = {
-				eslint = {
-					filetypes = { "javascript", "javascriptreact" },
-				},
-			},
-		},
-	},
+  "neovim/nvim-lspconfig",
+  opts = {
+    servers = {
+      eslint = {
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      },
+    },
+  },
 }
-

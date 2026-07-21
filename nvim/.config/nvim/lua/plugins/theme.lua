@@ -4,11 +4,12 @@ return {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
-      flavour = "mocha", -- latte, frappe, macchiato, mocha
+      flavour = "mocha",
+      -- Transparent so the WezTerm background opacity (0.85) shows through
       transparent_background = true,
       term_colors = true,
       integrations = {
-        cmp = true,
+        blink_cmp = true,
         gitsigns = true,
         neotree = true,
         telescope = true,
@@ -16,18 +17,15 @@ return {
         mini = { enabled = true },
         treesitter = true,
         noice = true,
-        lsp_trouble = true,
+        which_key = true,
       },
       custom_highlights = function(colors)
         return {
-          -- Neon accent overrides
           CursorLine = { bg = colors.surface0 },
           Visual = { bg = colors.surface1, style = { "italic" } },
           Comment = { fg = colors.overlay0, style = { "italic" } },
-          -- Neon hints
           DiagnosticHint = { fg = colors.lavender },
           DiagnosticVirtualTextHint = { fg = colors.lavender },
-          -- Prettier/ESLint highlights
           LspReferenceText = { underline = true, bg = colors.surface1 },
           LspReferenceRead = { underline = true, bg = colors.surface1 },
           LspReferenceWrite = { underline = true, bg = colors.surface1 },
@@ -37,4 +35,3 @@ return {
     vim.cmd.colorscheme("catppuccin")
   end,
 }
-

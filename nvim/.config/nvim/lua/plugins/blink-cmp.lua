@@ -6,7 +6,7 @@ return {
 		{
 			"L3MON4D3/LuaSnip",
 			version = "2.*",
-			build = not vim.g.is_windows and "make install_jsregexp" or nil,
+			build = "make install_jsregexp",
 		},
 	},
 	opts = {
@@ -44,7 +44,7 @@ return {
 				Struct = "󰙅",
 				Event = "",
 				Operator = "󰆕",
-				TypeParameter = "_generic",
+				TypeParameter = "󰊄",
 			},
 		},
 		completion = {

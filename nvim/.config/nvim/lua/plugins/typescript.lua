@@ -1,4 +1,3 @@
--- AppData/Local/nvim/lua/plugins/lang/typescript.lua
 return {
   {
     "pmizio/typescript-tools.nvim",
@@ -24,9 +23,8 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        ts_ls = {
-          enabled = false, -- Disable default ts_ls, use typescript-tools instead
-        },
+        -- typescript-tools replaces ts_ls
+        ts_ls = { enabled = false },
       },
     },
   },

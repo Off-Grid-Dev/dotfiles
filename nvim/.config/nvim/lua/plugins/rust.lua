@@ -1,4 +1,3 @@
--- AppData/Local/nvim/lua/plugins/lang/rust.lua
 return {
   {
     "neovim/nvim-lspconfig",
@@ -8,7 +7,7 @@ return {
           settings = {
             ["rust-analyzer"] = {
               check = { command = "clippy" },
-              cargo = { 
+              cargo = {
                 allFeatures = true,
                 loadOutDirsFromCheck = true,
               },
@@ -25,17 +24,11 @@ return {
       },
     },
   },
-  -- Optional: Rust tools
   {
     "saecki/crates.nvim",
     ft = { "toml" },
-    config = function()
-      require("crates").setup({
-        null_ls = { enabled = true },
-        popup = {
-          border = "rounded",
-        },
-      })
-    end,
+    opts = {
+      popup = { border = "rounded" },
+    },
   },
-} 
+}
