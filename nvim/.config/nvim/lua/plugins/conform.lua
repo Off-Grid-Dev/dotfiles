@@ -22,6 +22,7 @@ return {
       return { timeout_ms = 1000, lsp_format = "fallback" }
     end,
     formatters_by_ft = {
+      go = { "goimports", "gofumpt" },
       lua = { "stylua" },
       javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
       javascriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },

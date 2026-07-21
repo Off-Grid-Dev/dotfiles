@@ -38,6 +38,7 @@ return {
 
     require("mason-lspconfig").setup({
       ensure_installed = {
+        "gopls",
         "lua_ls",
         "phpactor",
         "rust_analyzer",
