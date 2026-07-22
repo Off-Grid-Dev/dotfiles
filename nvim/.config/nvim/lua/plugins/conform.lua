@@ -40,10 +40,17 @@ return {
     },
     formatters = {
       prettierd = {
-        condition = function(_, ctx)
-          local util = require("conform.util")
-          return util.root_pattern("package.json", ".prettierrc", ".prettierrc.js", ".prettierrc.json")(ctx.filename)
-            ~= nil
+        condition = function(self, ctx)
+          -- Always format markdown, even without a project root marker.
+          if vim.bo[ctx.buf].filetype == "markdown" then
+            return true
+          end
+          return require("conform.util").root_file({
+            "package.json",
+            ".prettierrc",
+            ".prettierrc.js",
+            ".prettierrc.json",
+          })(self, ctx) ~= nil
         end,
       },
     },
