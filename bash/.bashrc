@@ -151,5 +151,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 
-# AWS CLI tab completion
+# AWS CLI
+export AWS_PROFILE=ingrid
 complete -C "$HOME/.local/bin/aws_completer" aws
