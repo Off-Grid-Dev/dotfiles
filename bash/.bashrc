@@ -150,3 +150,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+# AWS CLI tab completion
+complete -C "$HOME/.local/bin/aws_completer" aws
