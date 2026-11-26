@@ -59,6 +59,12 @@ vim.schedule(function()
   vim.opt.clipboard = "unnamedplus"
 end)
 
+-- Reload neovim silently when changes are made other places
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  command = "checktime",
+})
+
 -- ── Keymaps ──────────────────────────────────────────────────────────────────
 local map = vim.keymap.set
 
