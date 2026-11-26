@@ -31,13 +31,13 @@ config.enable_tab_bar = true
 config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false
 config.tab_bar_at_bottom = true
-config.tab_and_split_indices_are_zero_based = true
+config.tab_and_split_indices_are_zero_based = false
 
 config.window_padding = {
   left   = '1cell',
   right  = '1cell',
   top    = '1cell',
-  bottom = '1.5cell',
+  bottom = '2.5cell',
 }
 
 -- =============================================
