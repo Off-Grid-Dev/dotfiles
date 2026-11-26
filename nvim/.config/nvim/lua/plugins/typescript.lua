@@ -1,4 +1,3 @@
--- AppData/Local/nvim/lua/plugins/lang/typescript.lua
 return {
   {
     "pmizio/typescript-tools.nvim",
@@ -31,3 +30,4 @@ return {
     },
   },
 }
+

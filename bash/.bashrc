@@ -1,7 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -22,10 +18,6 @@ HISTFILESIZE=2000
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -84,9 +76,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -100,26 +89,29 @@ alias gswn='git switch -c'
 
 # personal magic
 alias wiggle='npm run'
-alias see_rc='nvim ~/dotfiles/bash/.bashrc'
-alias bashed='source ~/dotfiles/bash/.bashrc'
-alias cameractrls='snap connect cameractrls:camera'
+alias see_rc='nvim ~/.bashrc'
+alias bashed='source ~/.bashrc'
+alias py='python3'
+alias ca='conda activate'
+alias cstop='conda deactivate'
 
-# open Arduino IDE
-alias arduino='arduino-ide --no-sandbox'
+# llama commands
+alias llama-start='systemctl --user start llama-server.service'
+alias llama-stop='systemctl --user stop llama-server.service'
+alias llama-restart='systemctl --user restart llama-server.service'
+alias llama-status='systemctl --user status llama-server.service'
+alias llama-logs='journalctl --user -u llama-server.service -f'
 
-# DVD stuff
-alias copy_dvd='dvdbackup -i /dev/sr0 -M -o ~/Videos/'
-alias copy_dvd_force='dvdbackup -i /dev/sr0 -M -f -o ~/Videos/'
-alias dvd_to_iso='mkisofs -dvd-video -o' #followed by "~/Videos/[movie name].iso" "~/Videos/[movie directory name]"
+ask() {
+  curl -s http://127.0.0.1:8080/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d "$(jq -n --arg q "$*" '{model: "qwen", messages: [{role: "user", content: $q}]}')" \
+    | jq -r '.choices[0].message.content'
+}
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -140,6 +132,21 @@ export PATH="$HOME/.local/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/skinnyk/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/skinnyk/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/skinnyk/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/skinnyk/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

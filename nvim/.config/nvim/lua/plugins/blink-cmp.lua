@@ -81,6 +81,11 @@ return {
 					module = "blink.cmp.sources.buffer",
 					score_offset = 25,
 				},
+        codecompanion = {
+          name = "CodeCompanion",
+          module = "codecompanion.providers.completion.blink",
+          enabled = true,
+        },
 			},
 		},
 		snippets = {
